@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Index</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Reset margin dan padding default */
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden; /* Menghindari scroll horizontal */
+    }
+    /* Styling gambar */
+    .clickable-image {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      width: 300px;
+      height: 300px;
+    }
+    .clickable-image:hover {
+      transform: scale(1.1);
+    }
+    /* Penempatan gambar di tengah */
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    /* Styling untuk Halaman 2 */
+    #page2 {
+      display: none; /* Awalnya disembunyikan */
+      min-height: 100vh;
+      flex-direction: column;
+      justify-content: flex-start; /* Mulai dari atas */
+      align-items: center;
+      padding: 20px;
+      background-color: white; /* Warna latar belakang */
+      position: relative; /* Untuk tombol kembali */
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; /* Jarak antar gambar */
+      justify-content: center;
+      max-width: 1000px; /* Batas lebar galeri */
+      margin: 0 auto; /* Memastikan galeri di tengah */
+      padding: 20px; /* Padding untuk jarak dari tepi */
+    }
+    .gallery img {
+      width: 266px;
+      height: 360px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    /* Tombol kembali */
+    .back-button {
+      position: fixed; /* Tombol tetap di layar */
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #0056b3;
+    }
+    /* Styling untuk Halaman 3 */
+    #page3 {
+      display: none; /* Awalnya disembunyikan */
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background-color: white; /* Warna latar belakang */
+    }
+    /* Header Halaman 3 */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 20px;
+      background-color: pink; /* Warna latar header */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Efek shadow */
+      position: relative;
+    }
+    .header img {
+      width: 50px; /* Ukuran logo */
+      height: 50px;
+      position: absolute;
+      left: 20px; /* Posisi logo di kiri */
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    /* Galeri Halaman 3 */
+    .gallery-page3 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .gallery-page3 img {
+      width: 274px;
+      height: 360px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .gallery-page3 img:hover {
+      transform: scale(1.05);
+    }
+    /* Styling untuk Halaman 4 */
+    #page4 {
+      display: none; /* Awalnya disembunyikan */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: white; /* Warna latar belakang */
+    }
+    /* Header Halaman 4 */
+    .header-page4 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 20px;
+      background-color: pink; /* Warna latar header */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Efek shadow */
+      position: relative;
+    }
+    .header-page4 img {
+      width: 50px; /* Ukuran logo */
+      height: 50px;
+      position: absolute;
+      left: 20px; /* Posisi logo di kiri */
+    }
+    .header-page4 h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    /* Gambar besar di tengah Halaman 4 */
+    .center-image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+    .center-image img {
+      width: 400px;
+      height: 500px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .center-image img:hover {
+      transform: scale(1.05);
+    }
+    /* Styling untuk Halaman 5 */
+    #page5 {
+      display: none; /* Awalnya disembunyikan */
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      background-color: white; /* Warna latar belakang */
+      overflow-y: auto; /* Memungkinkan scroll vertikal */
+    }
+    /* Header Halaman 5 */
+    .header-page5 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 20px;
+      background-color: pink; /* Warna latar header */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Efek shadow */
+      position: relative;
+    }
+    .header-page5 img {
+      width: 50px; /* Ukuran logo */
+      height: 50px;
+      position: absolute;
+      left: 20px; /* Posisi logo di kiri */
+    }
+    .header-page5 h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    /* Konten Halaman 5 */
+    .content-page5 {
+      display: flex;
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      gap: 20px; /* Jarak antara gambar, video, dan gambar tambahan */
+    }
+    /* Gambar di Halaman 5 */
+    .image-page5 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .image-page5 img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      object-fit: cover;
+    }
+    /* Video dan gambar tambahan di Halaman 5 */
+    .media-page5 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Jarak antara video dan gambar tambahan */
+    }
+    .video-page5 {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      background-color: #000; /* Warna latar video */
+    }
+    .additional-images {
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Jarak antara gambar tambahan */
+    }
+    .additional-images img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      object-fit: cover;
+    }
+    /* Kotak keterangan di Halaman 5 */
+    .description-box {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 10px; /* Cekungan pada pinggir kotak */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .description-box textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none; /* Nonaktifkan resize */
+    }
+    /* Tombol kembali di Halaman 5 */
+    .back-button-page5 {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .back-button-page5:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Halaman 1 -->
+  <div id="page1" class="center-container">
+    <img src="logo.jpeg" alt="Gambar" class="clickable-image" id="clickable-image">
+  </div>
+
+  <!-- Halaman 2 -->
+  <div id="page2">
+    <div class="gallery">
+      <img src="BURUNG - KARTU ISYARAT.jpg" alt="Gambar 1" onclick="goToPage3('Binatang Burung')">
+      <img src="ANJING - KARTU ISYARAT.jpg" alt="Gambar 2" onclick="goToPage3('Binatang Anjing')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 3" onclick="goToPage3('Binatang Kucing')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 4" onclick="goToPage3('Binatang Kelinci')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 5" onclick="goToPage3('Binatang Ikan')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 6" onclick="goToPage3('Binatang Ular')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 7" onclick="goToPage3('Binatang Kuda')">
+      <img src="https://via.placeholder.com/200" alt="Gambar 8" onclick="goToPage3('Binatang Sapi')">
+    </div>
+    <!-- Tombol kembali -->
+    <button class="back-button" onclick="goBackToPage1()">Kembali</button>
+  </div>
+
+  <!-- Halaman 3 -->
+  <div id="page3">
+    <!-- Header -->
+    <div class="header">
+      <img src="logo.jpeg" alt="Logo">
+      <h1 id="page3-title">Judul Halaman 3</h1>
+    </div>
+    <!-- Galeri -->
+    <div class="gallery-page3" id="gallery-page3">
+      <!-- Gambar akan dimasukkan secara dinamis -->
+    </div>
+    <!-- Tombol kembali -->
+    <button class="back-button" onclick="goBackToPage2()">Kembali</button>
+  </div>
+
+  <!-- Halaman 4 -->
+  <div id="page4">
+    <!-- Header -->
+    <div class="header-page4">
+      <img src="logo.jpeg" alt="Logo">
+      <h1 id="page4-title">Judul Halaman 4</h1>
+    </div>
+    <!-- Gambar besar di tengah -->
+    <div class="center-image">
+      <img id="large-image" src="" alt="Gambar Besar" onclick="goToPage5()">
+    </div>
+    <!-- Tombol kembali -->
+    <button class="back-button" onclick="goBackToPage3()">Kembali</button>
+  </div>
+
+  <!-- Halaman 5 -->
+  <div id="page5">
+    <!-- Header -->
+    <div class="header-page5">
+      <img src="logo.jpeg" alt="Logo">
+      <h1 id="page5-title">Judul Halaman 5</h1>
+    </div>
+    <!-- Konten -->
+    <div class="content-page5">
+      <!-- Gambar -->
+      <div class="image-page5">
+        <img id="main-image-page5" src="" alt="Gambar Utama">
+      </div>
+      <!-- Video dan gambar tambahan -->
+      <div class="media-page5">
+        <!-- Video -->
+        <div class="video-page5">
+          <video id="video-player" controls style="width: 100%; height: auto;">
+            <source id="video-source" src="" type="video/mp4">
+            Browser Anda tidak mendukung tag video.
+          </video>
+        </div>
+        <!-- Gambar tambahan -->
+        <div class="additional-images" id="additional-images">
+          <!-- Gambar tambahan akan dimasukkan secara dinamis -->
+        </div>
+      </div>
+    </div>
+    <!-- Kotak keterangan -->
+    <div class="description-box">
+      <p id="description-text">Deskripsi akan dimasukkan secara dinamis</p>
+    </div>
+    <!-- Tombol kembali -->
+    <button class="back-button-page5" onclick="goBackToPage4()">Kembali</button>
+  </div>
+
+  <script>
+    // Data gambar untuk setiap kategori
+    const imageData = {
+      "Binatang Burung": {
+        halaman3: [
+          { src: "BURUNG PIPIT - KARTU ISYARAT.jpg", halaman4: "BURUNG PIPIT - KARTU ISYARAT.jpg", halaman5: {
+            video: "pipit.mp4",
+            gambarTambahan: [
+              "BURUNG PIPIT.jpg",
+              "burung pipit asli.jpeg"
+            ],
+            deskripsi: "Burung Pipit merupakan nama umum bagi sekelompok burung kecil pemakan biji-bijian yang menyebar di wilayah tropis Dunia Lama dan Australasia. Burung-burung ini sekarang dimasukkan ke dalam suku Estrildidae, meski ada juga yang menganggap kelompok ini adalah anak-suku (Estrildinae), bagian dari suku Passeridae yang lebih luas. Sebelumnya, kelompok burung ini ditempatkan dalam suku manyar-manyaran, Ploceidae."
+          }},
+          { src: "BURUNG RUAK-RUAK - KARTU ISYARAT.jpg", halaman4: "BURUNG RUAK-RUAK - KARTU ISYARAT.jpg", halaman5: {
+            video: "ruak ruak.mp4",
+            gambarTambahan: [
+              "BURUNG RUAK-RUAK.jpg",
+              "burung ruak ruak asli.jpeg"
+            ],
+            deskripsi: "Kareo Padi (Amaurornis phoenicurus) dikenal juga sebagai ruak-ruak, kabuburak/burak-burak (Banjar) atau sribombok (Jawa) adalah spesies burung yang masuk dalam famili Rallidae. Burung ini tersebar di India, China selatan, Asia Tenggara, Filipina, Kalimantan,Sulawesi, Sunda Besar dan Nusa Tenggara. Namun, burung ini juga bisa ditemukan di sepanjang pesisir Lumajang, Jawa Timur, Banyumas, Jawa Tengah atau bisa juga di provinsi Aceh."
+          }},
+          { src: "BURUNG PIPIT MERAH - KARTU ISYARAT.jpg", halaman4: "BURUNG PIPIT MERAH - KARTU ISYARAT.jpg", halaman5: {
+            video: "burung merah.mp4",
+            gambarTambahan: [
+              "BURUNG PIPIT MERAH - KARTU ISYARAT.jpg",
+              "burung pipit merah asli.jpg"
+            ],
+            deskripsi: "Pipit benggala (bahasa Latin: Amandava amandava) adalah spesies burung dari keluarga Estrildidae, dari genus Amandava. Burung ini merupakan jenis burung pemakan padi, biji rumpu dan memiliki habitat di semak, padang rumput, lahan pertanian, sawah, rumpun gelagah. Tersebar sampai ketinggian 1.500 m dpl."
+          }}
+        ]
+      },
+      "Binatang Anjing": {
+        halaman3: [
+          { src: "ANJING - KARTU ISYARAT.jpg", halaman4: "ANJING - KARTU ISYARAT.jpg", halaman5: {
+            video: "anjing.mp4",
+            gambarTambahan: [
+              "ANJING -  KARTU ISYARAT.jpg",
+              "anjing asli.jpeg"
+            ],
+            deskripsi: "Anjing (Canis familiaris atau Canis lupus familiaris) adalah hewan mamalia yang telah mengalami domestikasi dari serigala sejak 15.000 tahun yang lalu, bahkan kemungkinan sudah sejak 100.000 tahun yang lalu berdasarkan bukti genetik berupa penemuan fosil dan tes DNA. Penelitian lain mengungkap sejarah domestikasi anjing yang belum begitu lama."
+          }},
+          { src: "https://via.placeholder.com/200", halaman4: "https://via.placeholder.com/200", halaman5: {
+            video: "placeholder-video.mp4",
+            gambarTambahan: [
+              "https://via.placeholder.com/300x150",
+              "https://via.placeholder.com/300x150"
+            ],
+            deskripsi: "Burung ruak-ruak adalah burung yang suka hidup di rawa."
+          }},
+          { src: "https://via.placeholder.com/200", halaman4: "https://via.placeholder.com/400", halaman5: {
+            video: "placeholder-video.mp4",
+            gambarTambahan: [
+              "https://via.placeholder.com/300x150",
+              "https://via.placeholder.com/300x150"
+            ],
+            deskripsi: "Ini adalah placeholder untuk data tambahan."
+          }}
+        ]
+      },
+      // Tambahkan data untuk kategori lainnya
+    };
+
+    // Fungsi untuk pindah dari Halaman 1 ke Halaman 2
+    document.getElementById("clickable-image").addEventListener("click", function () {
+      // Sembunyikan halaman 1
+      document.getElementById("page1").style.display = "none";
+      // Tampilkan halaman 2
+      document.getElementById("page2").style.display = "flex";
+    });
+
+    // Fungsi untuk pindah ke Halaman 3 dengan judul sesuai gambar yang diklik
+    function goToPage3(title) {
+      // Set judul Halaman 3
+      document.getElementById("page3-title").textContent = title;
+
+      // Ambil data gambar untuk halaman 3
+      const gambarHalaman3 = imageData[title].halaman3;
+
+      // Kosongkan galeri halaman 3
+      const galleryPage3 = document.getElementById("gallery-page3");
+      galleryPage3.innerHTML = "";
+
+      // Tambahkan gambar ke galeri halaman 3
+      gambarHalaman3.forEach((gambar) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = gambar.src;
+        imgElement.alt = "Gambar";
+        imgElement.onclick = () => goToPage4(title, gambar.halaman4, gambar.halaman5); // Pindah ke halaman 4 dengan gambar yang sesuai
+        galleryPage3.appendChild(imgElement);
+      });
+
+      // Sembunyikan Halaman 2
+      document.getElementById("page2").style.display = "none";
+      // Tampilkan Halaman 3
+      document.getElementById("page3").style.display = "flex";
+    }
+
+    // Fungsi untuk kembali ke Halaman 1 dari Halaman 2
+    function goBackToPage1() {
+      // Sembunyikan Halaman 2
+      document.getElementById("page2").style.display = "none";
+      // Tampilkan Halaman 1
+      document.getElementById("page1").style.display = "flex";
+    }
+
+    // Fungsi untuk kembali ke Halaman 2 dari Halaman 3
+    function goBackToPage2() {
+      // Sembunyikan Halaman 3
+      document.getElementById("page3").style.display = "none";
+      // Tampilkan Halaman 2
+      document.getElementById("page2").style.display = "flex";
+    }
+
+    // Fungsi untuk pindah ke Halaman 4 dengan gambar yang diklik
+    function goToPage4(title, gambar, halaman5Data) {
+      // Set judul Halaman 4
+      document.getElementById("page4-title").textContent = title;
+
+      // Set gambar besar di Halaman 4
+      const largeImage = document.getElementById("large-image");
+      largeImage.src = gambar;
+
+      // Simpan data Halaman 5 untuk digunakan nanti
+      largeImage.dataset.halaman5 = JSON.stringify(halaman5Data);
+
+      // Sembunyikan Halaman 3
+      document.getElementById("page3").style.display = "none";
+      // Tampilkan Halaman 4
+      document.getElementById("page4").style.display = "flex";
+    }
+
+    // Fungsi untuk kembali ke Halaman 3 dari Halaman 4
+    function goBackToPage3() {
+      // Sembunyikan Halaman 4
+      document.getElementById("page4").style.display = "none";
+      // Tampilkan Halaman 3
+      document.getElementById("page3").style.display = "flex";
+    }
+
+    // Fungsi untuk pindah ke Halaman 5 dengan gambar yang diklik
+    function goToPage5() {
+      // Ambil judul dari halaman 4
+      const title = document.getElementById("page4-title").textContent;
+
+      // Set judul Halaman 5
+      document.getElementById("page5-title").textContent = title;
+
+      // Ambil data Halaman 5 dari atribut dataset
+      const halaman5Data = JSON.parse(document.getElementById("large-image").dataset.halaman5);
+
+      // Ambil gambar utama untuk halaman 5
+      const mainImage = document.getElementById("main-image-page5");
+      mainImage.src = document.getElementById("large-image").src;
+
+      // Ambil video dan gambar tambahan
+      const videoElement = document.getElementById("video-player");
+      const videoSource = document.getElementById("video-source");
+      videoElement.src = halaman5Data.video;
+
+      const additionalImages = document.getElementById("additional-images");
+      additionalImages.innerHTML = "";
+      halaman5Data.gambarTambahan.forEach((gambar) => {
+        const imgElement = document.createElement("img");
+        imgElement.src = gambar;
+        imgElement.alt = "Gambar Tambahan";
+        additionalImages.appendChild(imgElement);
+      });
+
+      // Tampilkan deskripsi
+      const descriptionText = document.getElementById("description-text");
+      descriptionText.textContent = halaman5Data.deskripsi;
+
+      // Sembunyikan Halaman 4
+      document.getElementById("page4").style.display = "none";
+      // Tampilkan Halaman 5
+      document.getElementById("page5").style.display = "flex";
+    }
+
+    // Fungsi untuk kembali ke Halaman 4 dari Halaman 5
+    function goBackToPage4() {
+      // Sembunyikan Halaman 5
+      document.getElementById("page5").style.display = "none";
+      // Tampilkan Halaman 4
+      document.getElementById("page4").style.display = "flex";
+    }
+  </script>
+</body>
+</html>
